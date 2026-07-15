@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-mode">
+
+    <div id="loginPage">
+        <div class="login-box">
+            <div class="logo">SPT System</div>
+            <h1>Student Tracker</h1>
+            <p>Login to manage attendance and marks</p>
+            <div id="loginAlert" class="alert error">
+                Wrong username or password!
+            </div>
+            <input class="inp" id="loginUser" type="text" placeholder="Username (admin / student)">
+            <input class="inp" id="loginPass" type="password" placeholder="Password">
+            <button class="btn" onclick="handleLogin()">Login</button>
+            <p class="login-hint">
+                Admin: admin / admin123 <br>
+                Student: student / student123
+            </p>
+        </div>
+    </div>
+
+    <div id="app">
+        <div class="topbar">
+            <div class="brand">Student Performance Tracker</div>
+            <button class="tab-btn" id="tb-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="tab-btn" id="tb-students" onclick="switchTab('students')">Students</button>
+            <button class="tab-btn" id="tb-attendance" onclick="switchTab('attendance')">Attendance</button>
+            <button class="tab-btn" id="tb-marks" onclick="switchTab('marks')">Marks</button>
+            <button class="tab-btn" id="tb-report" onclick="switchTab('report')">Report</button>
+            <button class="theme-btn" id="themeToggle" onclick="handleThemeToggle()">Light Mode</button>
+            <span class="user-tag" id="userTag"></span>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <div class="main">
+            <div id="tab-dashboard" class="tab-panel">
+                <h2>Dashboard</h2>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h3>Total Students</h3>
+                        <p id="ds-total">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Attendance</h3>
+                        <p id="ds-att">0%</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Marks</h3>
+                        <p id="ds-marks">0%</p>
+                    </div>
+                </div>
+                <div class="section">
+                    <h3>All Students</h3>
+                    <div id="dashTable"></div>
+                </div>
+            </div>
+
+            <div id="tab-students" class="tab-panel">
+                <h2>Student Management</h2>
+                <div class="section">
+                    <h3>Add New Student (Total: <span id="stuCount">0</span>)</h3>
+                    <div id="stuAlert" class="alert"></div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="inp" id="s-name" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label>Roll No</label>
+                            <input class="inp" id="s-roll" placeholder="Enter roll number">
+                        </div>
+                        <div class="form-group">
+                            <label>Class</label>
+                            <input class="inp" id="s-class" placeholder="Enter class">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="inp" id="s-email" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <button class="sm-btn" onclick="addNewStudent()">Add Student</button>
+                </div>
+                <div class="section">
+                    <h3>Student List</h3>
+                    <div id="stuTable"></div>
+                </div>
+            </div>
+
+            <div id="tab-attendance" class="tab-panel">
+                <h2>Attendance</h2>
+                <div class="section">
+                    <h3>Mark Attendance</h3>
+                    <div id="attAlert" class="alert"></div>
+                    <label>Select Date</label>
+                    <input class="inp" id="att-date" type="date">
+                    <div id="attList"></div>
+                    <button class="sm-btn" onclick="saveAttendance()">Save Attendance</button>
+                </div>
+            </div>
+
+            <div id="tab-marks" class="tab-panel">
+                <h2>Marks</h2>
+                <div class="section">
+                    <h3>Add Marks</h3>
+                    <div id="marksAlert" class="alert"></div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Student</label>
+                            <select class="inp" id="m-student"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input class="inp" id="m-subject" placeholder="Enter subject">
+                        </div>
+                        <div class="form-group">
+                            <label>Score</label>
+                            <input class="inp" id="m-score" type="number" placeholder="Marks obtained">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Marks</label>
+                            <input class="inp" id="m-max" type="number" placeholder="Total marks">
+                        </div>
+                    </div>
+                    <button class="sm-btn" onclick="addMarks()">Add Marks</button>
+                </div>
+                <div class="section">
+                    <h3>Marks List</h3>
+                    <div id="marksTable"></div>
+                </div>
+            </div>
+
+            <div id="tab-report" class="tab-panel">
+                <h2>Reports</h2>
+                <div class="section">
+                    <h3>Student Performance Report</h3>
+                    <label>Select Student</label>
+                    <select class="inp" id="r-filter" onchange="displayReport()">
+                        <option value="">All Students</option>
+                    </select>
+                    <button class="sm-btn" onclick="triggerPrint()">Print Report</button>
+                    <div id="reportArea"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
